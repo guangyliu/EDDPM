@@ -1,8 +1,11 @@
-mkdir -p data
-wget -c -t 10 "https://cuhko365-my.sharepoint.com/:u:/g/personal/218019026_link_cuhk_edu_cn/ETzJ0Fae4-lHi3vN8G8HYbQBvZr7wh7iQvqMCd2YloAb_g?e=i4NE7O&download=1" -O data/datasets.tar.gz
-cd data
-tar -zxvf datasets.tar.gz
-cd ..
-
-echo "Datasets are in ./data/datasets"
-
+#!/bin/bash
+# The tokenized Yelp / Amazon review datasets used by the text experiments are on the
+# Hugging Face Hub (fields: bert_token, gpt2_token; splits: train, test).
+# The training script loads them directly with `datasets.load_dataset(...)`, so nothing
+# needs to be downloaded by hand; this pre-fetches them into the local HF cache.
+python - <<'PY'
+from datasets import load_dataset
+for name in ["guangyil/yelp_short", "guangyil/amazon_tokenized"]:
+    ds = load_dataset(name)
+    print(name, {k: len(v) for k, v in ds.items()})
+PY

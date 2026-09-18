@@ -1,10 +1,9 @@
-export PYTHONPATH="${PYTHONPATH}:/workspace/code"
 
 
 data=yelp_tokenized
 dataset=$data
 
-DATA=../data/yelp
+DATA=guangyil/yelp_short   # HF Hub id (or guangyil/amazon_tokenized); a local `datasets` dir also works
 
 beta=0.0
 latent_size=128
